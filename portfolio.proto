@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package aw.apis;
+
+option java_multiple_files = true;
+option java_outer_classname = "PortfoliosProto";
+option java_package = "io.magaldima.aw.apis";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+service PortfolioService {
+    rpc Get(GetPortfolioRequest) returns (Portfolio) {
+        option (google.api.http) = { 
+            get: "/v1/portfolios/{id}"
+        };
+    }
+
+    rpc Create(Portfolio) returns (Portfolio) {
+        option (google.api.http) = { 
+            post: "/v1/portfolios"
+            body: "*"
+        };
+    }
+
+    rpc Delete(DeletePortfolioRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = { 
+            delete: "/v1/portfolios/{id}"
+        };
+    }
+}
+
+message GetPortfolioRequest {
+    string id = 1; // this field is mapped to the path pattern
+    string tenant = 2; // this field is not mapped to path so is optional is query param
+}
+
+message CreatePortfolioRequest {
+    Portfolio portfolio = 1;
+}
+
+message DeletePortfolioRequest {
+    string id = 1;
+    string tenant = 2;
+}
+
+message Portfolio {
+    string id = 1;
+    string currency = 2;
+    repeated Position positions = 3;
+}
+
+message Position {
+    string id = 1;
+    string assetId = 2;
+    repeated AssetIdentifier identifiers = 3;
+    double marketValue = 4;
+    double quantity = 5;
+}
+
+message AssetIdentifier {
+    string kind = 1;
+    string value = 2;
+}

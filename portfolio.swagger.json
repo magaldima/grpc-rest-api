@@ -1,0 +1,158 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "portfolio.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/portfolios": {
+      "post": {
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apisPortfolio"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apisPortfolio"
+            }
+          }
+        ],
+        "tags": [
+          "PortfolioService"
+        ]
+      }
+    },
+    "/v1/portfolios/{id}": {
+      "get": {
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apisPortfolio"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tenant",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PortfolioService"
+        ]
+      },
+      "delete": {
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tenant",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PortfolioService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apisAssetIdentifier": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "apisPortfolio": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "positions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apisPosition"
+          }
+        }
+      }
+    },
+    "apisPosition": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "assetId": {
+          "type": "string"
+        },
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apisAssetIdentifier"
+          }
+        },
+        "marketValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "quantity": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    }
+  }
+}
