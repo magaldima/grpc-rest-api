@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package aw.apis;
+package api;
 
 option java_multiple_files = true;
 option java_outer_classname = "PortfoliosProto";
-option java_package = "io.magaldima.aw.apis";
+option java_package = "io.magaldima.api";
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
